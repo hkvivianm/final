@@ -15,21 +15,29 @@ end
 DB.create_table! :rsvps do
   primary_key :id
   foreign_key :event_id
+  foreign_key :user_id
   Boolean :going
   String :name
   String :email
   String :comments, text: true
 end
+DB.create_table! :users do
+  primary_key :id
+  String :name
+  String :city
+  String :email
+  String :password
+end
 
 # Insert initial (seed) data
 events_table = DB.from(:events)
 
-events_table.insert(title: "Bacon Burger Taco Fest", 
-                    description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
-                    date: "June 21",
-                    location: "Kellogg Global Hub")
+events_table.insert(title: "Cash Cows Chicago Architecture Cruise Boat Day", 
+                    description: "Let's celebrate with the famous Chicago skyline as our backdrop!",
+                    date: "June 17",
+                    location: "Chicago Riverwalk")
 
-events_table.insert(title: "Kaleapolooza", 
+events_table.insert(title: "Cash Cows Friends and Family Reception", 
                     description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
-                    date: "July 4",
-                    location: "Nowhere")
+                    date: "June 18",
+                    location: "Terra & Vine")
