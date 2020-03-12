@@ -38,3 +38,34 @@ get "/events/:id" do
 
     view "event"
 end
+
+# display the signup form (aka "new")
+get "/users/new" do
+    view "new_user"
+end
+
+# receive the submitted signup form (aka "create")
+post "/users/create" do
+    puts "params: #{params}"
+
+    # if there's already a user with this email, skip!
+    existing_user = users_table.where(email: params["email"]).to_a[0]
+    if existing_user
+        view "error"
+    else
+        users_table.insert(
+            name: params["name"],
+            email: params["email"],
+            password: BCrypt::Password.create(params["password"])
+        )
+
+        redirect "/logins/new"
+    end
+end
+
+# logout user
+get "/logout" do
+    # remove encrypted cookie for logged out user
+    session["user_id"] = nil
+    redirect "/logins/new"
+end

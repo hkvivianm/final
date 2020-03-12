@@ -17,6 +17,7 @@ DB.create_table! :rsvps do
   foreign_key :event_id
   foreign_key :user_id
   Boolean :going
+  String :guest
   String :name
   String :email
   String :comments, text: true
