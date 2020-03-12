@@ -18,8 +18,23 @@ events_table = DB.from(:events)
 rsvps_table = DB.from(:rsvps)
 users_table = DB.from(:users)
 
+# homepage and list of events (aka "index")
 get "/" do
-    puts events_table.all
+    puts "params: #{params}"
     @events = events_table.all.to_a
     view "events"
+end
+
+# event details (aka "show")
+get "/events/:id" do
+    puts "params: #{params}"
+
+    @users_table = users_table
+    @event = events_table.where(id: params[:id]).to_a[0]
+    pp @event
+
+    @rsvps = rsvps_table.where(event_id: @event[:id]).to_a
+    @going_count = rsvps_table.where(event_id: @event[:id], going: true).count
+
+    view "event"
 end
