@@ -2,6 +2,7 @@
 require "sinatra"                                                                     #
 require "sinatra/reloader" if development?                                            #
 require "sequel"                                                                      #
+require "geocoder"                                                                    #
 require "logger"                                                                      #
 require "twilio-ruby"                                                                 #
 require "bcrypt"                                                                      #
@@ -18,12 +19,17 @@ events_table = DB.from(:events)
 rsvps_table = DB.from(:rsvps)
 users_table = DB.from(:users)
 
+before do
+    @current_user = users_table.where(id: session["user_id"]).to_a[0]
+end
+
 # homepage and list of events (aka "index")
 get "/" do
     puts "params: #{params}"
     @events = events_table.all.to_a
     view "events"
 end
+
 
 # event details (aka "show")
 get "/events/:id" do
@@ -63,9 +69,43 @@ post "/users/create" do
     end
 end
 
+# display the login form (aka "new")
+get "/logins/new" do
+    view "new_login"
+end
+
+# receive the submitted login form (aka "create")
+post "/logins/create" do
+    puts "params: #{params}"
+
+    # step 1: user with the params["email"] ?
+    @user = users_table.where(email: params["email"]).to_a[0]
+
+    if @user
+        # step 2: if @user, does the encrypted password match?
+        if BCrypt::Password.new(@user[:password]) == params["password"]
+            # set encrypted cookie for logged in user
+            session["user_id"] = @user[:id]
+            redirect "/"
+        else
+            view "create_login_failed"
+        end
+    else
+        view "create_login_failed"
+    end
+end
+
 # logout user
 get "/logout" do
     # remove encrypted cookie for logged out user
     session["user_id"] = nil
     redirect "/logins/new"
+end
+
+# display the rsvp form (aka "new")
+get "/events/:id/rsvps/new" do
+    puts "params: #{params}"
+
+    @event = events_table.where(id: params[:id]).to_a[0]
+    view "new_rsvp"
 end
