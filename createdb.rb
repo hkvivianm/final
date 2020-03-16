@@ -28,6 +28,7 @@ DB.create_table! :users do
   String :city
   String :email
   String :password
+  String :message, text: true
 end
 
 # Insert initial (seed) data
