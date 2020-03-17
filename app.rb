@@ -176,3 +176,4 @@ get "/rsvps/:id/destroy" do
 
     redirect "/events/#{@event[:id]}"
 end
+
