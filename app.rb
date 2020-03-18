@@ -50,6 +50,13 @@ get "/events/:id" do
     @rsvps = rsvps_table.where(event_id: @event[:id]).to_a
     @going_count = rsvps_table.where(event_id: @event[:id], going: true).count
 
+    results = Geocoder.search(@event[:location])
+   
+    @lat_long = results.first.coordinates.to_a # => [lat, long]
+    @lat = "#{@lat_long [0]}"
+    @long = "#{@lat_long [1]}"
+    
+
     view "event"
 end
 
@@ -125,6 +132,7 @@ post "/events/:id/rsvps/create" do
 
     # first find the event that rsvp'ing for
     @event = events_table.where(id: params[:id]).to_a[0]
+    @rsvp = rsvps_table.where(id: @event[:user_id]).to_a[0]
     # next we want to insert a row in the rsvps table with the rsvp form data
     rsvps_table.insert(
         event_id: @event[:id],
@@ -170,7 +178,7 @@ end
 get "/rsvps/:id/destroy" do
     puts "params: #{params}"
 
-    rsvp = rsvps_table.where(id: params["id"]).to_a[0]
+    @rsvp = rsvps_table.where(id: params["id"]).to_a[0]
     @event = events_table.where(id: rsvp[:event_id]).to_a[0]
 
     rsvps_table.where(id: params["id"]).delete

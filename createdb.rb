@@ -42,4 +42,4 @@ events_table.insert(title: "Cash Cows Chicago Architecture Cruise Boat Day",
 events_table.insert(title: "Cash Cows Friends and Family Reception", 
                     description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
                     date: "June 18",
-                    location: "Terra & Vine, 1701 Maple Ave, Evanston, IL 60201")
+                    location: "1701 Maple Ave, Evanston, IL 60201")
