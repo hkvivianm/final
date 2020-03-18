@@ -70,7 +70,8 @@ post "/users/create" do
         users_table.insert(
             name: params["name"],
             email: params["email"],
-            password: BCrypt::Password.create(params["password"])
+            password: BCrypt::Password.create(params["password"]),
+            message: params["message"]
         )
 
         redirect "/logins/new"
