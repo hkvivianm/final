@@ -11,6 +11,7 @@ DB.create_table! :events do
   String :description, text: true
   String :date
   String :location
+  String :time
 end
 DB.create_table! :rsvps do
   primary_key :id
@@ -41,7 +42,13 @@ events_table.insert(title: "Cash Cows Chicago Architecture Cruise Boat Day",
                     location: "112 E Wacker Dr, Chicago, IL 60601")
 
 events_table.insert(title: "Cash Cows Friends and Family Reception", 
-                    description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
+                    description: "Bring you family and loved ones and we will celebrate together!",
                     date: "June 18",
-                    time: "5-9pm"
+                    time: "5-9pm",
                     location: "1701 Maple Ave, Evanston, IL 60201")
+
+events_table.insert(title: "If we are still self-isolating .... Virtual Section Connection!", 
+                    description: "Worst case scenario ... we still want a proper goodbye!",
+                    date: "June 18",
+                    time: "5-9pm",
+                    location: "Chicago")
