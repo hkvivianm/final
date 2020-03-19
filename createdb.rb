@@ -37,9 +37,11 @@ events_table = DB.from(:events)
 events_table.insert(title: "Cash Cows Chicago Architecture Cruise Boat Day", 
                     description: "Let's celebrate with the famous Chicago skyline as our backdrop!",
                     date: "June 17",
+                    time: "2-5pm",
                     location: "112 E Wacker Dr, Chicago, IL 60601")
 
 events_table.insert(title: "Cash Cows Friends and Family Reception", 
                     description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
                     date: "June 18",
+                    time: "5-9pm"
                     location: "1701 Maple Ave, Evanston, IL 60201")

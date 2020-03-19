@@ -1,12 +1,15 @@
- <h2>
+    <h2><%= @event[:title] %></h2>
+               
+    <h3><%= @event[:description] %></h3>
+
+    </br>
+        <h3>
             <i class="far fa-calendar-alt"></i>
             <%= @event[:date] %>
-        </h2>
-        <h1><%= @event[:title] %></h1>
-        <p><%= @event[:description] %></p>
-
+        </h3>
+    
+    </br>
         
-
          <% for rsvp in @rsvps %>
             <div class="media">
                 <% if rsvp[:going] %>
@@ -19,7 +22,7 @@
                         <%= @users_table.where(id: rsvp[:user_id]).to_a[0][:name] %>
 
                         <small>
-                            <% if @current_user && @current_user[:id] == @rsvp[:user_id] %>
+                            <% if @current_user && @current_user[:id] == rsvp[:user_id] %>
                                 (<a href="/rsvps/<%= rsvp[:id] %>/edit">edit</a> | <a href="/rsvps/<%= rsvp[:id] %>/destroy">delete</a>)
                             <% end %>
                         </small>
@@ -29,30 +32,55 @@
             </div>
         <% end %>   
 
-        <p class="mt-5">
-            <% if @current_user && @current_user[:id] == @rsvp[:user_id] %>
-            <p> See you there! </p>
-            <%  elsif @current_user %>
-                <a href="/events/<%= @event[:id] %>/rsvps/new" class="btn btn-primary">RSVP now!</a>
+<p class="mt-5">
+        
+           
+            <%  if @current_user %>
+                <a href="/events/<%= @event[:id] %>/rsvps/new" class="btn btn-info">RSVP now!</a>
             <% else %>
-                <a href="/logins/new" class="btn btn-danger">Please sign in to RSVP</a>
+                <a href="/logins/new" class="btn btn-info">Please sign in to RSVP</a>
             <% end %>
-        </p>
+        
+    </p>        
+    
+</br>
 
-         <div class="col-sm-3">
-        <h3>When?</h3>
-        <p><%= @event[:date] %></p>
-        <h3>Where?</h3>
-        <p><%= @event[:location] %></p>
-
-        <p><%= @lat_long %></p>
-            <iframe
-                width="300"
-                height="250"
-                frameborder="0" style="border:0"
-                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= "#{@lat_long[0]} #{@lat_long[1]}" %>&zoom=14" allowfullscreen>
-            </iframe>
-
-        <h3>How many guests so far?</h3>
-        <p><%= @going_count %></p>
+    <div class=details>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Where?</h3>
+                <p><%= @event[:location] %></p>
+                <iframe
+                    width="300"
+                    height="250"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= "#{@lat_long[0]} #{@lat_long[1]}" %>&zoom=14" allowfullscreen>
+                </iframe>
+            </div>
+            <div class="col-md-6">
+                <h3>How many guests so far?</h3>
+                <p><%= @going_count %></p>
+            </div>
+        </div>
+</br>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>What time?</h3>
+                <p><%= @event[:time] %></p>
+            </div>
+        </div>
     </div>
+
+
+ </br>
+
+ <h3>Questions about the event? Text your Cash Cows leadership team!</h3>
+        <form action="/twilio" method="post">
+            <div class="form-group">
+                <label>What's your question?</label>
+                <textarea class="form-control" rows="1" name="question"></textarea>
+            </div>
+                <a href="/message_sent" class="btn btn-info">Submit</a>
+            </form>
+
+</br>

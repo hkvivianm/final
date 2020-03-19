@@ -23,6 +23,31 @@ before do
     @current_user = users_table.where(id: session["user_id"]).to_a[0]
 end
 
+
+# put your API credentials here (found on your Twilio dashboard)
+account_sid = ENV["TWILIO_ACCOUNT_SID"]
+auth_token = ENV["TWILIO_AUTH_TOKEN"]
+
+# set up a client to talk to the Twilio REST API
+client = Twilio::REST::Client.new(account_sid, auth_token)
+
+# send the SMS from your trial Twilio number to your verified non-Twilio number
+
+post "/twilio" do
+     client.messages.create(
+            from: "+12406509950", 
+            to: "+17733229938",
+            body: "#{params["question"]}"
+            )
+    view "message_sent"
+end
+
+get "/message_sent" do
+
+    view "message_sent"
+
+end
+
 # homepage and list of events (aka "index")
 get "/" do
     puts "params: #{params}"
@@ -132,7 +157,7 @@ post "/events/:id/rsvps/create" do
 
     # first find the event that rsvp'ing for
     @event = events_table.where(id: params[:id]).to_a[0]
-    @rsvp = rsvps_table.where(id: @event[:user_id]).to_a[0]
+    
     # next we want to insert a row in the rsvps table with the rsvp form data
     rsvps_table.insert(
         event_id: @event[:id],
@@ -142,6 +167,8 @@ post "/events/:id/rsvps/create" do
     )
 
     redirect "/events/#{@event[:id]}"
+
+    
 end
 
 # display the rsvp form (aka "edit")

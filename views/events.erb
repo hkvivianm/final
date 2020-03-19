@@ -1,15 +1,63 @@
 
-<div class="jumbotron">
-  <h1>Cash Cows Gratuation Celebration</h1>
-  <h5> While we are doign Spring quarter classes remotely (for now), let's look forward to seeing each other in person again when COVID-19 leaves us!</h5>
-  <h5> Here is a list of the events that we are planning for our graduation. Sign-up to RSVP, and leave a few words for your fellow sectionmates! </h5>
-  <p> With love, Vivian, Karina, and Ben </p>
+<div class="jumbotron_opening">
+    <div class="container">
+        <h1 class=opening>Hello dear Cash Cows!</h1>
+            </br>    
+        <h5> While we are doign Spring quarter classes remotely (for now), let's look forward to seeing each other in person again when COVID-19 leaves us!</h5>
+            <p>  </p>
+        <h5> Here is a list of the events that we are planning for our graduation. Sign-up to RSVP, and leave a few words for your fellow sectionmates! </h5>
+            </br>
+        <p> With love, Vivian, Karina, and Ben </p>
+            
+            </br>
+    </div>
   </div>
+</br>
+</br>
 
-<h1>Cash Cows Gratuation Celebration</h1>
+<div class="photos">
+        <div class="row">
+            <div class="col-sm text-center">
+                <img src="Cashcows09.JPG" class="img-fluid">
+            </div>    
+        </div>
+</div>
 
+</br>
+
+<h3>List of Cash Cows Gratuation Celebration activities</h3>
+</br>
 <% for event in @events %>
-    <p><a href="/events/<%= event[:id] %>"><%= event[:title] %></a></p>
+    <p><i class="fas fa-star"></i> <a href="/events/<%= event[:id] %>"><%= event[:title] %></a></p>
 <% end %>
 
-<a href="year_book" class="btn btn-primary">See our year book messages!</a>
+</br>
+
+<div class="photos">
+        <div class="row">
+            <div class="col-sm text-center">
+                <p></p>
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-sm text-center">
+                <img src="Cashcows04.JPG" class="img-fluid">
+            </div>
+            <div class="col-sm text-center">
+               <img src="Cashcows03.jpg" class="img-fluid">
+            </div>
+            <div class="col-sm text-center">
+               <img src="Cashcows13.JPG" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+</br>
+</br>
+
+<h3>And of course - we have compiled the messages you put at sign-up!</h3>
+</br>
+<a href="year_book" class="btn btn-info">See our year book messages!</a>
+</br>
+</br>
+</br>

@@ -1,7 +1,22 @@
- <h2> Leave a message for your beloved fellow Cash Cows! </h2>
-    
-    <% for user in @users %>
-    <p><%= user[:name] %></p>
-    <p><%= user[:message] %></p>
-<% end %>
+ <div class="photos">
+        <div class="row">
+            <div class="col-sm text-center">
+                <img src="Cashcows05.JPG" class="img-fluid">
+            </div>    
+        </div>
+</div>
 
+</br>
+
+<h2> Messages from your beloved fellow Cash Cows! </h2>
+
+</br>
+
+<div>
+    <% for user in @users %>
+        <h4 class="message"><%= user[:name] %></h4>
+        <p><%= user[:message] %></p>
+    <% end %>
+</div>
+        
+ </br>
